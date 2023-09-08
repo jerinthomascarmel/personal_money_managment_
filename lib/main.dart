@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:personal_money_management_app/models/category/category_model.dart';
 import 'package:personal_money_management_app/screens/home/screen_home.dart';
+import 'package:personal_money_management_app/screens/transactions/screen_add_transaction.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized;
@@ -29,6 +30,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: ScreenHome(),
+      routes: {
+        AddTransactionScreen.Screen_add_Transaction: (context) =>
+            const AddTransactionScreen(),
+      },
     );
   }
 }

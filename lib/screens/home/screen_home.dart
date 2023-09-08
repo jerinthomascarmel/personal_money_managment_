@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:personal_money_management_app/screens/category/category_add_popup.dart';
 import 'package:personal_money_management_app/screens/category/screen_category.dart';
 import 'package:personal_money_management_app/screens/home/widgets/bottom_nav_widget.dart';
+import 'package:personal_money_management_app/screens/transactions/screen_add_transaction.dart';
 import 'package:personal_money_management_app/screens/transactions/screen_transactions.dart';
 
 class ScreenHome extends StatelessWidget {
@@ -31,6 +32,8 @@ class ScreenHome extends StatelessWidget {
         onPressed: () async {
           if (selectedIndex.value == 0) {
             print('transaction here');
+            Navigator.pushNamed(
+                context, AddTransactionScreen.Screen_add_Transaction);
           } else {
             showCategoryAddPopup(context);
             // final _sample = CategoryModel(
