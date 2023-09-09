@@ -16,6 +16,14 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   CategoryType? _selectedCategoryType;
   CategoryModel? _selectedCategoryModel;
 
+  String? _categoryID;
+
+  @override
+  void initState() {
+    _selectedCategoryType = CategoryType.income;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +91,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       onChanged: (value) {
                         setState(() {
                           _selectedCategoryType = value;
+                          _categoryID = null;
                         });
                       },
                     ),
@@ -97,6 +106,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       onChanged: (value) {
                         setState(() {
                           _selectedCategoryType = value;
+                          _categoryID = null;
                         });
                       },
                     ),
@@ -108,14 +118,22 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
             //dropdown button
             DropdownButton(
+              value: _categoryID,
               hint: const Text('Select Category'),
-              items: CategoryDB.instance.expenseListListener.value.map((e) {
+              items: (_selectedCategoryType == CategoryType.expense
+                      ? CategoryDB.instance.expenseListListener
+                      : CategoryDB.instance.incomeListListener)
+                  .value
+                  .map((e) {
                 return DropdownMenuItem(
                   child: Text(e.name),
                   value: e.id,
                 );
               }).toList(),
               onChanged: (value) {
+                setState(() {
+                  _categoryID = value;
+                });
                 print(value);
               },
             ),
