@@ -6,40 +6,40 @@ ValueNotifier<CategoryType> selectedCategoryNotifier =
     ValueNotifier(CategoryType.income);
 
 Future<void> showCategoryAddPopup(BuildContext context) async {
-  final _nameEditingController = TextEditingController();
+  final nameEditingController = TextEditingController();
   showDialog(
     context: context,
     builder: (ctx) {
       return SimpleDialog(
-        title: Text('Add Category'),
+        title: const Text('Add Category'),
         children: [
           Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: TextFormField(
-              controller: _nameEditingController,
-              decoration: InputDecoration(
+              controller: nameEditingController,
+              decoration: const InputDecoration(
                 hintText: 'Category Name',
                 border: OutlineInputBorder(),
               ),
             ),
           ),
-          RadioButton(title: 'Income', type: CategoryType.income),
-          RadioButton(title: 'Expense', type: CategoryType.expense),
+          const RadioButton(title: 'Income', type: CategoryType.income),
+          const RadioButton(title: 'Expense', type: CategoryType.expense),
           ElevatedButton(
               onPressed: () {
-                final _name = _nameEditingController.text;
-                if (_name.isEmpty) {
+                final name = nameEditingController.text;
+                if (name.isEmpty) {
                   return;
                 }
                 final model = CategoryModel(
                     id: DateTime.now().millisecondsSinceEpoch.toString(),
-                    name: _name,
+                    name: name,
                     type: selectedCategoryNotifier.value);
 
                 CategoryDB().insertCategory(model);
                 Navigator.of(ctx).pop();
               },
-              child: Text('Add'))
+              child: const Text('Add'))
         ],
       );
     },
@@ -66,6 +66,7 @@ class RadioButton extends StatelessWidget {
                   return;
                 }
                 selectedCategoryNotifier.value = value;
+                // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
                 selectedCategoryNotifier.notifyListeners();
               },
             );
